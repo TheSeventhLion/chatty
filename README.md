@@ -1,49 +1,49 @@
-<img src="https://devmounta.in/img/logowhiteblue.png" width="250" align="right">
+var bodyParser = require('body-parser');
+var express = require('express');
 
-Chatty
-======
 
-#### Objectives
-This project uses Node.js and Express to build a basic REST-based chat server. You will also be plugging in a basic Angular app to make your first **full stack** application!
+var app = express();
 
-#### Step 1: Basic Setup
-1. Clone this project
-
-1. Run `npm init` to to create our `package.json`.
-
-1. Install the packages we'll need — express and body-parser  
-  `npm install --save package-name`
-
-1. Require express and body-parser in `index.js`
-
-1. Initialize express and assign it the app variable `var app = express()`
-
-1. Start listening to a port using `app.listen(3000)`
-
-We need to send our client-side code (located in the assets folder) to the user when they go to our site. We'll also want express to automatically parse stringified JSON data coming in and assign it as a JS Object to `req.body`.
-
-The express and body-parser packages provide an easy way to do these two tasks. After `var app = express()` insert these two lines:
-```javascript
 app.use(express.static('assets'))
 app.use(bodyParser.json())
-```
 
-We will discussing, in much more depth, how this works tomorrow!
+//This is acting as a temp storage, but is usually not involved in full scales apps // 
+// var messages = [];
+//This is acting as a temp storage, but is usually not involved in full scales apps // 
 
-### Step 2: Serving Messages
-1. Create an array for storing your messages temporarily. You could call the variable `messages`. Think about what scope this variable should be placed in. We need to be sure we keep our messages from previous requests or at least until our server is restarted.
+//Step 5// lets change our `messages` array — from an array of strings to an array of objects.
+messages.push({ message: req.body.message, time: new Date() });
+//Step 5//
 
-1. Write a new GET endpoint that returns our array of messages. It will look something like this:
-  ```javascript
-  app.get('/messages', function (req, res, next) {
+console.log(app)
+
+app.get('/messages', function(req, res, next) {
     res.status(200).json({ messages: messages });
-  });
-  ```
+});
 
-1. Test your server. Run it with `nodemon index.js` and use Postman to make a GET request to `/messages`. Add some default messages to the `messages` variable to make sure it is returning data the way you would expect.
+app.post('/messages', function(req, res, next) {
+    messages.push(req.body);
+    res.status(200).json({ messages: messages });
+});
 
-### Step 3: Adding Messages
-Lets create our endpoint to POST a new message. This will be structured similarly to our GET endpoint. Let's start by logging `req.body`.
+
+
+
+
+
+
+
+
+
+
+
+
+//This always be the very last thing in your index.js file everytime
+
+
+app.listen(3000, function() {
+    console.log('Listening on Port 3000')
+});s create our endpoint to POST a new message. This will be structured similarly to our GET endpoint. Let's start by logging `req.body`.
 ```javascript
 app.post('/messages', function (req, res, next) {
   console.log(req.body);
@@ -97,7 +97,7 @@ First, lets change our `messages` array — from an array of strings to an array
 messages.push({ message: req.body.message, time: new Date() });
 ```
 
-Second, we need to make a small adjustment to our client-side code to handle this new data structure. The ng-repeat of over our messages will need to look simlar to this:
+Second, we need to make a small adjustment to our client-side code to handle this new data structure. The ng-repeat over our messages will need to look similar to this:
 ```html
 <div ng-repeat="message in messages track by $index">
   {{message.message}} : {{message.time}}

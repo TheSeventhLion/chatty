@@ -1,28 +1,57 @@
-var bodyParser = require('body-parser');
-var express = require('express');
+< !doctype html >
+    <
+    html >
+
+    <
+    head >
+    <
+    meta charset = "utf-8" >
+    <
+    title > < /title> <
+    meta name = "description"
+content = "" >
+    <
+    meta name = "viewport"
+content = "width=device-width" >
+    <
+    link rel = "stylesheet"
+href = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" / >
+    <
+    link rel = "stylesheet"
+href = "styles/main.css" >
+    <
+    /head>
+
+<
+body ng - app = "chattyApp" >
+
+    <!-- Add your site or application content here -->
+    <
+    div ng - repeat = "message in messages track by $index" > {
+        { message.message } }: {
+        { message.time } } <
+    /div>
 
 
-var app = express();
+<
+div class = "container"
+ng - include = "'views/main.html'"
+ng - controller = "MainCtrl" > < /div>
 
-app.use(express.static('assets'))
-app.use(bodyParser.json())
+<
+script src = "//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" > < /script> <
+    script src = "//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular.js" > < /script> <
+    script src = "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" > < /script>
 
-//This is acting as a temp storage, but is usually not involved in full scales apps // 
-var messages = [];
-//This is acting as a temp storage, but is usually not involved in full scales apps // 
+<
+script src = "scripts/app.js" > < /script> <
+    script src = "scripts/controllers/main.js" > < /script> <
+    script src = "scripts/controllers/message.js" > < /script> <
+    script src = "scripts/services/messageService.js" > < /script> <
+    /body>
 
-console.log(app)
-
-app.get('/messages', function(req, res, next) {
-    res.status(200).json({ messages: messages });
-});
-
-app.post('/messages', function(req, res, next) {
-    messages.push(req.body);
-    res.status(200).json({ messages: messages });
-});
-
-
+<
+/html>
 
 
 
@@ -30,11 +59,7 @@ app.post('/messages', function(req, res, next) {
 
 
 
-
-
-
-
-//This always be the very last thing in your index.js file
+//This always be the very last thing in your index.js file everytime
 
 
 app.listen(3000, function() {
